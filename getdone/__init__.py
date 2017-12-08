@@ -4,8 +4,8 @@ import sys
 
 
 def main():
+    # First argument is the name of the script file. So, ignoring it.
     default, args = sys.argv[0], sys.argv[1:]
-    print(len(args))
     if len(args) == 0:
         gd.display_tasks()
     else:
