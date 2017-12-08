@@ -1,11 +1,11 @@
 from PyQt5 import Qt
 from playsound import playsound
-import os.path as osp
+import os
 
 from getdone.Task import Task
 
 GET_DONE_FILE_NAME = 'get-done'
-GET_DONE_FILE_PATH = osp.expanduser('~/' + GET_DONE_FILE_NAME)
+GET_DONE_FILE_PATH = os.path.expanduser('~/' + GET_DONE_FILE_NAME)
 
 
 def toast(msg):
@@ -19,12 +19,12 @@ def toast(msg):
 def save_task(task):
     create_gd_file_if_not_exists()
     with open(GET_DONE_FILE_PATH, 'a') as file:
-        file.write(task.string_form())
+        file.write(task.string_form() + os.linesep)
 
 
 def create_gd_file_if_not_exists():
     # Create empty file if it doesn't exist
-    if not osp.exists(GET_DONE_FILE_PATH):
+    if not os.path.exists(GET_DONE_FILE_PATH):
         open(GET_DONE_FILE_PATH, 'a').close()
 
 
