@@ -30,6 +30,7 @@ def save_task(task):
     create_gd_file_if_not_exists()
     with open(GET_DONE_FILE_PATH, 'a') as file:
         file.write(task.string_form() + os.linesep)
+        print("Task '" + task.title + "' added")
 
 
 def create_gd_file_if_not_exists():
