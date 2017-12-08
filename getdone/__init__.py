@@ -1,13 +1,13 @@
-import os.path as osp
-
 from getdone import GetDone as gd
+from getdone.Task import Task
+import sys
 
 
 def main():
-    get_done_file = osp.expanduser('~/get-done')
-
-    # Create empty file if it doesn't exist
-    if not osp.exists(get_done_file):
-        open(get_done_file, 'a').close()
-
-    gd.toast("Hello")
+    default, args = sys.argv[0], sys.argv[1:]
+    print(len(args))
+    if len(args) == 0:
+        gd.display_tasks()
+    else:
+        title = " ".join(args)
+        gd.save_task(Task(title))

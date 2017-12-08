@@ -1,11 +1,40 @@
 from PyQt5 import Qt
-import sys
 from playsound import playsound
+import os.path as osp
+
+from getdone.Task import Task
+
+GET_DONE_FILE_NAME = 'get-done'
+GET_DONE_FILE_PATH = osp.expanduser('~/' + GET_DONE_FILE_NAME)
 
 
 def toast(msg):
-    app = Qt.QApplication(sys.argv)
+    app = Qt.QApplication()
     notification = Qt.QSystemTrayIcon(Qt.QIcon('get_done.png'), app)
     notification.show()
     notification.showMessage("Get Done", msg)
     playsound('chime.mp3')
+
+
+def save_task(task):
+    create_gd_file_if_not_exists()
+    with open(GET_DONE_FILE_PATH, 'a') as file:
+        file.write(task.string_form())
+
+
+def create_gd_file_if_not_exists():
+    # Create empty file if it doesn't exist
+    if not osp.exists(GET_DONE_FILE_PATH):
+        open(GET_DONE_FILE_PATH, 'a').close()
+
+
+def display_tasks():
+    create_gd_file_if_not_exists()
+    file = open(GET_DONE_FILE_PATH)
+    tasks = list(map(lambda s: Task.parse_string(s), file.readlines()))
+    if len(tasks) == 0:
+        return
+    file.close()
+    # some processing here
+    for task in tasks:
+        print(task.string_form())
