@@ -9,6 +9,3 @@ def toast(msg):
     notification.show()
     notification.showMessage("Get Done", msg)
     playsound('chime.mp3')
-
-
-toast("Hello World")
