@@ -31,10 +31,13 @@ def create_gd_file_if_not_exists():
 def display_tasks():
     create_gd_file_if_not_exists()
     file = open(GET_DONE_FILE_PATH)
-    tasks = list(map(lambda s: Task.parse_string(s), file.readlines()))
+    lines = [line.strip() for line in file.readlines() if line.strip()]
+    tasks = list(map(lambda s: Task.parse_string(s), lines))
     if len(tasks) == 0:
+        print("No TODO's present")
+        print("You are all caught up. Yay!")
         return
     file.close()
     # some processing here
     for task in tasks:
-        print(task.string_form())
+        print('TODO: ' + task.string_form())
