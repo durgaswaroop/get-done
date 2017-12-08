@@ -17,9 +17,9 @@ class Task:
     def parse_string(string):
         splits = string.split(' ==== ')
         if len(splits) == 1:
-            Task(splits[0])
+            return Task(splits[0])
         elif len(splits) == 2:
-            Task(splits[0], splits[1])
+            return Task(splits[0], splits[1])
         else:
             raise InvalidTaskException(string)
 
