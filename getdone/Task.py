@@ -15,12 +15,12 @@ class Task:
             representation = self.title
         return representation
 
-    @staticmethod
-    def parse_string(string):
-        splits = string.split(SEPARATOR)
-        if len(splits) == 1:
-            return Task(splits[0])
-        elif len(splits) == 2:
-            return Task(splits[0], splits[1])
-        else:
-            raise InvalidTaskException(string)
+
+def parse_string(string):
+    splits = string.split(SEPARATOR)
+    if len(splits) == 1:
+        return Task(splits[0])
+    elif len(splits) == 2:
+        return Task(splits[0], splits[1])
+    else:
+        raise InvalidTaskException(string)

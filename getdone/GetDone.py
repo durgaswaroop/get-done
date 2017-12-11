@@ -4,6 +4,7 @@ import os
 import threading
 
 from getdone.Task import Task
+from getdone.Task import parse_string
 
 GET_DONE_FILE_NAME = 'get-done'
 GET_DONE_FILE_PATH = os.path.expanduser('~/' + GET_DONE_FILE_NAME)
@@ -51,7 +52,7 @@ def display_tasks():
     create_gd_file_if_not_exists()
     file = open(GET_DONE_FILE_PATH)
     lines = [line.strip() for line in file.readlines() if line.strip()]
-    tasks = list(map(lambda s: Task.parse_string(s), lines))
+    tasks = list(map(lambda s: parse_string(s), lines))
     if len(tasks) == 0:
         print("No TODO's present")
         print("You are all caught up. Yay!")
