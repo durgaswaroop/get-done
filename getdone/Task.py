@@ -4,13 +4,13 @@ SEPARATOR = ' ==== '
 
 
 class Task:
-    def __init__(self, title, deadline=''):
+    def __init__(self, title, deadline=None):
         self.title = title
         self.deadline = deadline
 
     def string_form(self) -> str:
         if self.deadline:
-            representation = self.title + SEPARATOR + self.deadline
+            representation = self.title + SEPARATOR + str(self.deadline)
         else:
             representation = self.title
         return representation
