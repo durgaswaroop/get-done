@@ -3,11 +3,33 @@ from playsound import playsound
 import os
 import threading
 
-from getdone.Task import Task
 from getdone.Task import parse_string
 
 GET_DONE_FILE_NAME = 'get-done'
 GET_DONE_FILE_PATH = os.path.expanduser('~/' + GET_DONE_FILE_NAME)
+THUMBS_UP = """
+★░░░░░░░░░░░████░░░░░░░░░░░░░░░░░░░░★ 
+★░░░░░░░░░███░██░░░░░░░░░░░░░░░░░░░░★ 
+★░░░░░░░░░██░░░█░░░░░░░░░░░░░░░░░░░░★ 
+★░░░░░░░░░██░░░██░░░░░░░░░░░░░░░░░░░★ 
+★░░░░░░░░░░██░░░███░░░░░░░░░░░░░░░░░★ 
+★░░░░░░░░░░░██░░░░██░░░░░░░░░░░░░░░░★ 
+★░░░░░░░░░░░██░░░░░███░░░░░░░░░░░░░░★ 
+★░░░░░░░░░░░░██░░░░░░██░░░░░░░░░░░░░★ 
+★░░░░░░░███████░░░░░░░██░░░░░░░░░░░░★ 
+★░░░░█████░░░░░░░░░░░░░░███░██░░░░░░★ 
+★░░░██░░░░░████░░░░░░░░░░██████░░░░░★ 
+★░░░██░░████░░███░░░░░░░░░░░░░██░░░░★ 
+★░░░██░░░░░░░░███░░░░░░░░░░░░░██░░░░★ 
+★░░░░██████████░███░░░░░░░░░░░██░░░░★ 
+★░░░░██░░░░░░░░████░░░░░░░░░░░██░░░░★ 
+★░░░░███████████░░██░░░░░░░░░░██░░░░★ 
+★░░░░░░██░░░░░░░████░░░░░██████░░░░░★ 
+★░░░░░░██████████░██░░░░███░██░░░░░░★ 
+★░░░░░░░░░██░░░░░████░███░░░░░░░░░░░★ 
+★░░░░░░░░░█████████████░░░░░░░░░░░░░★ 
+★░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░★
+"""
 
 
 def toast(msg):
@@ -59,5 +81,10 @@ def display_tasks():
         return
     file.close()
     # some processing here
+    max_length = str(len(max(tasks, key=lambda t: len(t.title)).title) + 5)
     for i, task in enumerate(tasks, start=1):
-        print(str(i) + ': TODO: ' + task.string_form())
+        if task.deadline:
+            print(('{}: TODO: {:' + max_length + '} {} {}').format(str(i), task.title, 'Complete By:',
+                                                                   str(task.deadline)))
+        else:
+            print(('{}: TODO: {:' + max_length + '}').format(str(i), task.title))
