@@ -1,6 +1,7 @@
 from PyQt5 import Qt
 from playsound import playsound
 import os
+import threading
 
 from getdone.Task import Task
 
@@ -57,5 +58,5 @@ def display_tasks():
         return
     file.close()
     # some processing here
-    for task in tasks:
-        print('TODO: ' + task.string_form())
+    for i, task in enumerate(tasks, start=1):
+        print(str(i) + ': TODO: ' + task.string_form())
